@@ -106,7 +106,7 @@ static X509_EXTENSION *do_ext_nconf(CONF *conf, X509V3_CTX *ctx, int ext_nid,
         if ((ext_struc = method->s2i(method, ctx, value)) == NULL)
             return NULL;
     } else if (method->r2i) {
-        if (!ctx->db || !ctx->db_meth) {
+        if (ctx && (!ctx->db || !ctx->db_meth)) {
             X509V3err(X509V3_F_DO_EXT_NCONF, X509V3_R_NO_CONFIG_DATABASE);
             return NULL;
         }
